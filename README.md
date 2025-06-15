@@ -227,9 +227,3 @@ If you want to propose major changes, please open an issue first to discuss the 
 **Yudeep Rajbhandari**
 
 ---
-
-Let me know if you'd like to:
-
-- Add GitHub Actions (CI/CD) for automatic testing or analysis
-- Integrate with SonarCloud for public metrics
-- Package the system using Docker for easier deployment
