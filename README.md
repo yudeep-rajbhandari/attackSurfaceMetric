@@ -73,8 +73,9 @@ mvn sonar:sonar \
 
 This service provides CWE, CVE, CERT, and OWASP mapping and enrichment.
 
+https://github.com/yudeep-rajbhandari/nodeJSCWEE
+
 ```bash
-cd node-service
 npm install
 node index.js
 ```
