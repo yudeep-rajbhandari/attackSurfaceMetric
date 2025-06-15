@@ -62,7 +62,7 @@ public class SonarService {
             if(t==21){
                 break;
             }
-            List<SonarIssues> issues1 = apiService.getAllIssues(projectKey,t);
+            List<SonarIssues> issues1 = apiService.getAllIssues(projectKey, Integer.valueOf(t));
             if (issues1.isEmpty()){
                 break;
             }
@@ -94,7 +94,8 @@ public class SonarService {
         double finalScore = finalScoreCalculation(uniqueSonarRules,sonarCount);
         responseFinal.setUnweightedScore(finalScore);
         double finalScore1= 0;
-        finalScore1 = finalScore/sonarCount.values().stream().reduce(0, Integer::sum);
+        int totalCount = sonarCount.values().stream().mapToInt(Integer::intValue).sum();
+        finalScore1 = finalScore / (double) totalCount;
         finalScore1 = finalScore1/300;
         responseFinal.setFinalScore(finalScore1);
 
@@ -105,9 +106,9 @@ public class SonarService {
 
     private double finalScoreCalculation(List<SonarRules> uniqueSonarRules, Map<String, Integer> sonarCount) {
         for(SonarRules sonarRules:uniqueSonarRules){
-            Integer damagePotential = sonarRules.getConsequencScore() * metricsCalculator.getSeverityScore(sonarRules.getSeverity());
+            Integer damagePotential = (Integer) (sonarRules.getConsequencScore() * metricsCalculator.getSeverityScore(sonarRules.getSeverity()));
             double score =  damagePotential/(sonarRules.getCveScore() ==0?1:sonarRules.getCveScore());
-            sonarRules.setScore(score);
+            sonarRules.setScore(Double.valueOf(score));
         }
         double finalScore = 0;
         for(SonarRules sonarRules:uniqueSonarRules){
@@ -123,10 +124,10 @@ public class SonarService {
         Map<String,Integer> sonarCount = new HashMap<>();
         for(SonarRules sonarRules1:sonarRules){
             if(!sonarCount.keySet().stream().filter(j->j.equals(sonarRules1.getKey())).collect(Collectors.toList()).isEmpty()){
-                sonarCount.put(sonarRules1.getKey(),sonarCount.get(sonarRules1.getKey())+1);
+                sonarCount.put(sonarRules1.getKey(), Integer.valueOf(sonarCount.get(sonarRules1.getKey())+1));
             }
             else {
-                sonarCount.put(sonarRules1.getKey(),1);
+                sonarCount.put(sonarRules1.getKey(), Integer.valueOf(1));
             }
         }
         return sonarCount;
@@ -144,18 +145,18 @@ public class SonarService {
                 else {
                     cveList.addAll(sonarRules1.getCVEList());
                 }
-                Double allScore = 0.0;
+                Double allScore = (Double) 0.0;
                 for(String s:cveList){
                     CVEScore cveScore = metricsCalculator.getCVE(s);
                     try {
-                        Integer i = metricsCalculator.getAccessComplexityScore(cveScore.getAccessComplexity())* metricsCalculator.getAuthenticationScore(cveScore.getAuthentication());
-                        allScore = allScore+i;
+                        Integer i = (Integer) (metricsCalculator.getAccessComplexityScore(cveScore.getAccessComplexity())* metricsCalculator.getAuthenticationScore(cveScore.getAuthentication()));
+                        allScore = (Double) (allScore+i);
                     }
                     catch (Exception e){
                         LOGGER.log(Level.SEVERE,() -> String.format(" %1$s", e.getMessage()));
                     }
                 }
-                allScore = allScore/cveList.size();
+                allScore = (Double) (allScore/cveList.size());
                 sonarRules1.setCveScore(allScore);
             }
         }
@@ -185,7 +186,7 @@ public class SonarService {
             }
             sonarRules1.setConsequenceList(cweConsequence);
             int k = metricsCalculator.getConsequenceScore(cweConsequence);
-            sonarRules1.setConsequencScore(k);
+            sonarRules1.setConsequencScore(Integer.valueOf(k));
             sonarRules1.setHtmlDesc(null);
         }
     }
