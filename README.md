@@ -1,4 +1,29 @@
+# 🛡️ AttackSurfaceMetrics
 
+A tool to calculate **Attack Surface Metrics** for Java codebases using static analysis via **SonarQube**.  
+It integrates vulnerability metadata such as **CWE**, **CVEs**, **CERT**, and **OWASP** to generate weighted security scores.
+
+---
+
+## 📦 Technologies Used
+
+- Java 11
+- Spring Boot
+- SonarQube (8.9 LTS)
+- Node.js
+- Maven
+
+---
+
+## 🛠️ Setup Instructions
+
+### 📥 1. Install Java 11
+
+Ensure that you are using Java 11. You can verify this using:
+
+```bash
+java -version
+⚠️ Note: Java 17+ will break compatibility with SonarQube 8.9.
 ## 🧱 2. Setup & Run SonarQube
 
 Download the SonarQube version included in the repository (or download [SonarQube 8.9 LTS](https://www.sonarsource.com/products/sonarqube/downloads/)).
