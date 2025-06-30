@@ -26,7 +26,7 @@ java -version
 ⚠️ Note: Java 17+ will break compatibility with SonarQube 8.9.
 ## 🧱 2. Setup & Run SonarQube
 
-Download the SonarQube version included in the repository (or download [SonarQube 8.9 LTS](https://www.sonarsource.com/products/sonarqube/downloads/)).
+Download the SonarQube version https://drive.google.com/file/d/1tQVeM7ZCBDDOPpW0ctXbuP6xdqs_YrgA/view?usp=sharing  or download [SonarQube 8.9 LTS](https://www.sonarsource.com/products/sonarqube/downloads/)).
 
 ### ▶️ Start SonarQube (based on OS)
 
