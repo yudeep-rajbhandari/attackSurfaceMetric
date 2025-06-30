@@ -5,6 +5,7 @@ import com.yudeep.attacksurface.entity.Consequence;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,21 +34,52 @@ public class MetricsCalculator {
     private RestTemplate restTemplate;
 
 
+    @Value("${score.access.high}")
+    private int accessHigh;
+    @Value("${score.access.medium}")
+    private int accessMedium;
+    @Value("${score.access.low}")
+    private int accessLow;
+    @Value("${score.access.none}")
+    private int accessNone;
+
+    @Value("${score.auth.multiple}")
+    private int authMultiple;
+    @Value("${score.auth.single}")
+    private int authSingle;
+    @Value("${score.auth.low}")
+    private int authLow;
+    @Value("${score.auth.none}")
+    private int authNone;
+
+    @Value("${score.severity.blocker}")
+    private int severityBlocker;
+    @Value("${score.severity.critical}")
+    private int severityCritical;
+    @Value("${score.severity.major}")
+    private int severityMajor;
+    @Value("${score.severity.minor}")
+    private int severityMinor;
+    @Value("${score.severity.info}")
+    private int severityInfo;
+
     @PostConstruct
-    private void setSynonym(){
-        accessComplexityMapper.put("HIGH",10);
-        accessComplexityMapper.put("MEDIUM",7);
-        accessComplexityMapper.put("LOW",4);
-        accessComplexityMapper.put("NONE",1);
-        authenticationMapper.put("MULTIPLE",10);
-        authenticationMapper.put("SINGLE",7);
-        authenticationMapper.put("LOW",4);
-        authenticationMapper.put("NONE",1);
-        severityMapper.put("BLOCKER",10);
-        severityMapper.put("CRITICAL",7);
-        severityMapper.put("MAJOR",4);
-        severityMapper.put("MINOR",2);
-        severityMapper.put("INFO",1);
+    private void setSynonym() {
+        accessComplexityMapper.put("HIGH", accessHigh);
+        accessComplexityMapper.put("MEDIUM", accessMedium);
+        accessComplexityMapper.put("LOW", accessLow);
+        accessComplexityMapper.put("NONE", accessNone);
+
+        authenticationMapper.put("MULTIPLE", authMultiple);
+        authenticationMapper.put("SINGLE", authSingle);
+        authenticationMapper.put("LOW", authLow);
+        authenticationMapper.put("NONE", authNone);
+
+        severityMapper.put("BLOCKER", severityBlocker);
+        severityMapper.put("CRITICAL", severityCritical);
+        severityMapper.put("MAJOR", severityMajor);
+        severityMapper.put("MINOR", severityMinor);
+        severityMapper.put("INFO", severityInfo);
     }
 
 
